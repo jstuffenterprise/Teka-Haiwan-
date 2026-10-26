@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dunia Haiwan Ceria</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #ff5722;
+            font-size: 28px;
+            margin: 10px 0;
+            text-shadow: 2px 2px #fff;
+        }
+
+        p {
+            color: #00796b;
+            font-size: 18px;
+            margin: 0 0 15px 0;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            flex-grow: 1;
+            align-content: center;
+        }
+
+        .animal-card {
+            background-color: white;
+            border-radius: 25px;
+            padding: 20px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: transform 0.1s ease, background-color 0.3s;
+            user-select: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .animal-card:active {
+            transform: scale(0.9);
+        }
+
+        .emoji {
+            font-size: 70px;
+            margin-bottom: 10px;
+        }
+
+        .name {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Ruang mesej interaktif di bawah */
+        #display-box {
+            background: white;
+            padding: 15px;
+            border-radius: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #d32f2f;
+            min-height: 40px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <h1>🦁 Dunia Haiwan Ceria 🐵</h1>
+        <p>Sentuh gambar haiwan untuk dengar bunyi!</p>
+    </div>
+
+    <div class="grid-container">
+        <!-- Kotak Monyet -->
+        <div class="animal-card" style="background-color: #ffecb3;" onclick="playAnimal('Monyet 🐒', 'Uek-uek! 🐵')">
+            <div class="emoji">🐒</div>
+            <div class="name">Monyet</div>
+        </div>
+
+        <!-- Kotak Kucing -->
+        <div class="animal-card" style="background-color: #ffcdd2;" onclick="playAnimal('Kucing 🐱', 'Meow! Meow! 🐱')">
+            <div class="emoji">🐱</div>
+            <div class="name">Kucing</div>
+        </div>
+
+        <!-- Kotak Lembu -->
+        <div class="animal-card" style="background-color: #c8e6c9;" onclick="playAnimal('Lembu 🐮', 'Moo... Moo... 🐮')">
+            <div class="emoji">🐮</div>
+            <div class="name">Lembu</div>
+        </div>
+
+        <!-- Kotak Singa -->
+        <div class="animal-card" style="background-color: #ffe0b2;" onclick="playAnimal('Singa 🦁', 'Roar! 🦁')">
+            <div class="emoji">🦁</div>
+            <div class="name">Singa</div>
+        </div>
+    </div>
+
+    <div id="display-box">👇 Tekan mana-mana haiwan!</div>
+
+    <script>
+        function playAnimal(animalName, soundText) {
+            const textBox = document.getElementById("display-box");
+            textBox.innerHTML = animalName + " buat bunyi: " + soundText;
+            
+            // Ubah warna latar belakang kotak mesej secara rawak untuk meriahkan suasana
+            const colors = ["#ffcdd2", "#c8e6c9", "#ffecb3", "#b3e5fc", "#e1bee7"];
+            textBox.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+            // Anda boleh tambah fungsi audio sebenar di sini jika ada fail mp3 nanti
+            if ('speechSynthesis' in window) {
+                let speech = new SpeechSynthesisUtterance(soundText);
+                speech.lang = 'ms-MY'; // Cuba sebut dalam Bahasa Melayu/Suara latar
+                window.speechSynthesis.speak(speech);
+            }
+        }
+    </script>
+
+</body>
+</html>
